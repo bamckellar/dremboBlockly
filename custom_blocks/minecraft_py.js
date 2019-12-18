@@ -83,7 +83,7 @@ Blockly.Blocks['minecraft_setblock'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Set block of:")
-        .appendField(new Blockly.FieldDropdown([["Wood","17"], ["Glass","20"], ["Dirt","3"], ["Cobblestone","4"], ["TNT","46"]]), "block_type");
+        .appendField(new Blockly.FieldDropdown([["Wood","17"], ["Air","0"], ["Glass","20"], ["Dirt","3"], ["Cobblestone","4"], ["TNT","46"]]), "block_type");
     this.appendDummyInput()
         .appendField(" at:");
     this.appendValueInput("x")
@@ -154,7 +154,7 @@ Blockly.Blocks['minecraft_setblocks'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Make a box of ")
-        .appendField(new Blockly.FieldDropdown([["Wood","17"], ["Glass","20"], ["Dirt","3"], ["Cobblestone","4"], ["TNT","46"]]), "blockType");
+        .appendField(new Blockly.FieldDropdown([["Wood","17"], ["Air","0"], ["Glass","20"], ["Dirt","3"], ["Cobblestone","4"], ["TNT","46"]]), "blockType");
     this.appendValueInput("x")
         .setCheck("Number")
         .appendField(" at: X");
@@ -178,6 +178,43 @@ Blockly.Blocks['minecraft_setblocks'] = {
     this.setNextStatement(true, null);
     this.setColour(245);
  this.setTooltip("Create a box at set location of width, height, length.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['minecraft_setsign'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Set SIGN at:");
+    this.appendValueInput("x")
+        .setCheck("Number")
+        .appendField("X");
+    this.appendValueInput("y")
+        .setCheck("Number")
+        .appendField("Y");
+    this.appendValueInput("z")
+        .setCheck("Number")
+        .appendField("Z");
+    this.appendDummyInput()
+        .appendField("Facing")
+        .appendField(new Blockly.FieldDropdown([["South","0"], ["Southwest","2"], ["West","4"], ["Northwest","6"], ["North","8"], ["Northeast","10"], ["East","12"], ["Southeast","14"]]), "facing");
+    this.appendValueInput("line1")
+        .setCheck("String")
+        .appendField("with line 1:");
+    this.appendValueInput("line2")
+        .setCheck("String")
+        .appendField("line 2:");
+    this.appendValueInput("line3")
+        .setCheck("String")
+        .appendField("line 3:");
+    this.appendValueInput("line4")
+        .setCheck("String")
+        .appendField("line 4:");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(245);
+ this.setTooltip("Set a sign at given position. Max 15 characters per line!!");
  this.setHelpUrl("");
   }
 };
@@ -388,6 +425,26 @@ Blockly.Python['minecraft_setblocks'] = function(block) {
   var end_y = Number(start_y) + Number(value_height) - 1;
   var end_z = Number(start_z) + Number(value_length) - 1;
   var code = 'mc.setBlocks(' + start_x + ','  + start_y + ','  + start_z + ',' + end_x + ','  + end_y + ','  + end_z + ',' + dropdown_blocktype +')\n';
+  return code;
+};
+
+Blockly.Python['minecraft_setsign'] = function(block) {
+  var value_x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+  var value_y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+  var value_z = Blockly.Python.valueToCode(block, 'z', Blockly.Python.ORDER_ATOMIC);
+  var dropdown_facing = block.getFieldValue('facing');
+  var value_line1 = Blockly.Python.valueToCode(block, 'line1', Blockly.Python.ORDER_ATOMIC);
+  var value_line2 = Blockly.Python.valueToCode(block, 'line2', Blockly.Python.ORDER_ATOMIC);
+  var value_line3 = Blockly.Python.valueToCode(block, 'line3', Blockly.Python.ORDER_ATOMIC);
+  var value_line4 = Blockly.Python.valueToCode(block, 'line4', Blockly.Python.ORDER_ATOMIC);
+  //var value_messagetopost = Blockly.Python.valueToCode(block, 'messageToPost', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  value_line1 = value_line1.replace('text Line1','');
+  value_line2 = value_line2.replace('text Line2','');
+  value_line3 = value_line3.replace('text Line3','');
+  value_line4 = value_line4.replace('text Line4','');  
+  var code = 'mc.setSign(' + value_x + ','  + value_y + ','  + value_z + ',63,' + dropdown_facing + ',' + value_line1 + ',' + value_line2 + ',' + value_line3 + ',' + value_line4 + ')\n';
+  //var code = 'mc.setSign(' + value_x + ','  + value_y + ','  + value_z + ',63,' + dropdown_facing + ',"' + value_line1 + '","' + value_line2 + '","' + value_line3 + '","' + value_line4 + '")\n';
   return code;
 };
 

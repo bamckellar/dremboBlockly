@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="google" value="notranslate">
-  <title>Drembo Blockly:</title>
+  <title>This Drembo Blockly:</title>
   <link rel="stylesheet" href="styles/style.css">
   <link rel="shortcut icon" href="favicon.ico" />
   <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico">
@@ -104,26 +104,20 @@
     <category name="Minecraft" colour="245">
       <block type="minecraft_import"></block>
       <block type="minecraft_player_setpos">
-				<value name="x">
-					<shadow type="math_number"><field name="NUM">0</field></shadow>
-				</value>
-				<value name="y">
-					<shadow type="math_number"><field name="NUM">0</field></shadow>
-				</value>
-				<value name="z">
-					<shadow type="math_number"><field name="NUM">0</field></shadow>
-				</value>
+				<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+				<value name="y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+				<value name="z"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
 			</block>
       <block type="minecraft_player_settilepos">
-				<value name="x">
-					<shadow type="math_number"><field name="NUM">5</field></shadow>
-				</value>
-				<value name="y">
-					<shadow type="math_number"><field name="NUM">6</field></shadow>
-				</value>
-				<value name="z">
-					<shadow type="math_number"><field name="NUM">7</field></shadow>
-				</value>
+				<value name="x"><shadow type="math_number"><field name="NUM">5</field></shadow></value>
+				<value name="y"><shadow type="math_number"><field name="NUM">6</field></shadow></value>
+				<value name="z"><shadow type="math_number"><field name="NUM">7</field></shadow></value>
+      </block>
+      <block type="minecraft_entity_settilepos">
+        <value name="entityid"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+				<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+				<value name="y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+				<value name="z"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
       </block>
       <block type="minecraft_setblock">
         <field name="block_type">17</field>
@@ -136,6 +130,16 @@
         <value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
 				<value name="y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
 				<value name="z"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+      </block>
+      <block type="minecraft_spawnentitywithid">
+        <field name="mob">50</field>
+        <value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+		    <value name="y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+        <value name="z"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+        <value name="entityID"><block type="variables_get"><field name="VAR">entityID</field></block></value>
+      </block>
+      <block type="minecraft_removeentity">
+        <value name="entityid"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
       </block>
       <block type="minecraft_getblock">
         <value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
@@ -154,7 +158,7 @@
       <block type="minecraft_setsign">
         <value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
 				<value name="y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
-				<value name="z"><shadow type="math_number"><field name="NUM">0</field></shadow></value
+				<value name="z"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
         <field name="facing">0</field>
         <value name="line1"><shadow type="text"><field name="TEXT">text Line1</field></shadow></value>
         <value name="line2"><shadow type="text"><field name="TEXT">text Line2</field></shadow></value>
@@ -175,6 +179,13 @@
         <value name="posX"><block type="variables_get"><field name="VAR">posX</field></block></value>
         <value name="posY"><block type="variables_get"><field name="VAR">posY</field></block></value>
         <value name="posZ"><block type="variables_get"><field name="VAR">posZ</field></block></value>
+      </block>
+      <block type="minecraft_entity_gettilepos">
+        <value name="entityid"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+        <value name="ePosVar"><block type="variables_get"><field name="VAR">entityPos</field></block></value>
+        <value name="ePosX"><block type="variables_get"><field name="VAR">ePosX</field></block></value>
+        <value name="ePosY"><block type="variables_get"><field name="VAR">ePosY</field></block></value>
+        <value name="ePosZ"><block type="variables_get"><field name="VAR">ePosZ</field></block></value>
       </block>
       <block type="minecraft_getheight">
         <value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>

@@ -79,6 +79,29 @@ Blockly.Blocks['minecraft_player_settilepos'] = {
   }
 };
 
+Blockly.Blocks['minecraft_entity_settilepos'] = {
+  init: function() {
+    this.appendValueInput("entityid")
+        .setCheck("Number")
+        .appendField("Send entity with ID:");
+    this.appendValueInput("x")
+        .setCheck("Number")
+        .appendField("to: X");
+    this.appendValueInput("y")
+        .setCheck("Number")
+        .appendField("Y");
+    this.appendValueInput("z")
+        .setCheck("Number")
+        .appendField("Z");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(245);
+ this.setTooltip("Send entity with ID to tile with entity.setTilePos - takes integers only");
+ this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks['minecraft_setblock'] = {
   init: function() {
     this.appendDummyInput()
@@ -99,7 +122,7 @@ Blockly.Blocks['minecraft_setblock'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(245);
- this.setTooltip("Set a block at given position.");
+ this.setTooltip("Set a block at a given position.");
  this.setHelpUrl("");
   }
 };
@@ -107,7 +130,7 @@ Blockly.Blocks['minecraft_setblock'] = {
 Blockly.Blocks['minecraft_spawnentity'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Spawn:")
+        .appendField("Spawn")
         .appendField(new Blockly.FieldDropdown([["Creeper","50"], ["Skeleton","51"], ["Spider","52"], ["Zombie","54"], ["Pig","90"]]), "mob");
     this.appendDummyInput()
         .appendField(" at:");
@@ -124,7 +147,49 @@ Blockly.Blocks['minecraft_spawnentity'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(245);
- this.setTooltip("Spawn a mod at given position.");
+ this.setTooltip("Drop a mob at a given position.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['minecraft_spawnentitywithid'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Spawn")
+        .appendField(new Blockly.FieldDropdown([["Creeper","50"], ["Skeleton","51"], ["Spider","52"], ["Zombie","54"], ["Pig","90"]]), "mob");
+    this.appendDummyInput()
+        .appendField(" at:");
+    this.appendValueInput("x")
+        .setCheck("Number")
+        .appendField("X");
+    this.appendValueInput("y")
+        .setCheck("Number")
+        .appendField("Y");
+    this.appendValueInput("z")
+        .setCheck("Number")
+        .appendField("Z");
+    this.appendValueInput("entityID")
+        .setCheck("Number")
+        .appendField("and set Entity ID to");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(245);
+ this.setTooltip("Drop a mob at position x,y,z and return the mob entityID.");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['minecraft_removeentity'] = {
+  init: function() {
+    this.appendValueInput("entityid")
+        .setCheck("Number")
+        .appendField("Remove entity with ID:");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(245);
+ this.setTooltip("Remove entity with ID - takes an integer");
  this.setHelpUrl("");
   }
 };
@@ -269,6 +334,32 @@ Blockly.Blocks['minecraft_getpos_all_in_one'] = {
   }
 };
 
+Blockly.Blocks['minecraft_entity_gettilepos'] = {
+  init: function() {
+    this.appendValueInput("entityid")
+        .setCheck("Number")
+        .appendField("For entity of ID: ");
+    this.appendValueInput("ePosVar")
+        .setCheck(null)
+        .appendField("from position variable:");
+    this.appendValueInput("ePosX")
+        .setCheck(null)
+        .appendField(" Get ePos.x");
+    this.appendValueInput("ePosY")
+        .setCheck(null)
+        .appendField(" ePos.y");
+    this.appendValueInput("ePosZ")
+        .setCheck(null)
+        .appendField("and ePos.z");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(245);
+ this.setTooltip("Returns all 3 entity TILE position values (x, y, z)");
+ this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks['minecraft_getheight'] = {
   init: function() {
     this.appendDummyInput()
@@ -387,6 +478,16 @@ Blockly.Python['minecraft_player_settilepos'] = function(block) {
   return code;
 };
 
+Blockly.Python['minecraft_entity_settilepos'] = function(block) {
+  var entityid = Blockly.Python.valueToCode(block, 'entityid', Blockly.Python.ORDER_ATOMIC);
+  var value_x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+  var value_y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+  var value_z = Blockly.Python.valueToCode(block, 'z', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = 'mc.entity.setTilePos(' + entityid + ',' + value_x + ','  + value_y + ','  + value_z + ')\n';
+  return code;
+};
+
 Blockly.Python['minecraft_setblock'] = function(block) {
   var dropdown_block_type = block.getFieldValue('block_type');
   var value_x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
@@ -402,6 +503,23 @@ Blockly.Python['minecraft_spawnentity'] = function(block) {
   var value_y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
   var value_z = Blockly.Python.valueToCode(block, 'z', Blockly.Python.ORDER_ATOMIC);
   var code = 'mc.spawnEntity(' + value_x + ','  + value_y + ','  + value_z + ',' + dropdown_mob +')\n';
+  return code;
+};
+
+Blockly.Python['minecraft_spawnentitywithid'] = function(block) {
+  var dropdown_mob = block.getFieldValue('mob');
+  var value_x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+  var value_y = Blockly.Python.valueToCode(block, 'y', Blockly.Python.ORDER_ATOMIC);
+  var value_z = Blockly.Python.valueToCode(block, 'z', Blockly.Python.ORDER_ATOMIC);
+  var value_entityid = Blockly.Python.valueToCode(block, 'entityID', Blockly.Python.ORDER_ATOMIC);
+  var code = value_entityid + ' = mc.spawnEntity(' + value_x + ','  + value_y + ','  + value_z + ',' + dropdown_mob +')\n';
+  return code;
+};
+
+Blockly.Python['minecraft_removeentity'] = function(block) {
+  var entityid = Blockly.Python.valueToCode(block, 'entityid', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = 'mc.removeEntity(' + entityid + ')\n';
   return code;
 };
 
@@ -471,6 +589,20 @@ Blockly.Python['minecraft_getpos_all_in_one'] = function(block) {
   var getTheY = value_posy + ' = ' + value_posvar + '.y\n';
   var getTheZ = value_posz + ' = ' + value_posvar + '.z\n';
   var code = getThePos + getTheX + getTheY + getTheZ;
+  return code;
+};
+
+Blockly.Python['minecraft_entity_gettilepos'] = function(block) {
+  var value_entityid = Blockly.Python.valueToCode(block, 'entityid', Blockly.Python.ORDER_ATOMIC);
+  var value_eposvar = Blockly.Python.valueToCode(block, 'ePosVar', Blockly.Python.ORDER_ATOMIC);
+  var value_eposx = Blockly.Python.valueToCode(block, 'ePosX', Blockly.Python.ORDER_ATOMIC);
+  var value_eposy = Blockly.Python.valueToCode(block, 'ePosY', Blockly.Python.ORDER_ATOMIC);
+  var value_eposz = Blockly.Python.valueToCode(block, 'ePosZ', Blockly.Python.ORDER_ATOMIC);
+  var getTheEPos = value_eposvar + ' = mc.entity.getTilePos(' + value_entityid + ')\n';
+  var getTheEX = value_eposx + ' = ' + value_eposvar + '.x\n';
+  var getTheEY = value_eposy + ' = ' + value_eposvar + '.y\n';
+  var getTheEZ = value_eposz + ' = ' + value_eposvar + '.z\n';
+  var code = getTheEPos + getTheEX + getTheEY + getTheEZ;
   return code;
 };
 

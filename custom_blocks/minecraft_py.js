@@ -329,7 +329,7 @@ Blockly.Blocks['minecraft_getpos_all_in_one'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(245);
- this.setTooltip("Returns all 3 player position values (x, y, z)");
+ this.setTooltip("Returns all 3 player TILE position values (x, y, z) - returns integers");
  this.setHelpUrl("");
   }
 };
@@ -355,7 +355,7 @@ Blockly.Blocks['minecraft_entity_gettilepos'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(245);
- this.setTooltip("Returns all 3 entity TILE position values (x, y, z)");
+ this.setTooltip("Returns all 3 entity TILE position values (x, y, z) - returns integers");
  this.setHelpUrl("");
   }
 };
@@ -584,10 +584,10 @@ Blockly.Python['minecraft_getpos_all_in_one'] = function(block) {
   var value_posx = Blockly.Python.valueToCode(block, 'posX', Blockly.Python.ORDER_ATOMIC);
   var value_posy = Blockly.Python.valueToCode(block, 'posY', Blockly.Python.ORDER_ATOMIC);
   var value_posz = Blockly.Python.valueToCode(block, 'posZ', Blockly.Python.ORDER_ATOMIC);
-  var getThePos = value_posvar + ' = mc.player.getPos()\n';
-  var getTheX = value_posx + ' = int(' + value_posvar + '.x)\n';
-  var getTheY = value_posy + ' = int(' + value_posvar + '.y)\n';
-  var getTheZ = value_posz + ' = int(' + value_posvar + '.z)\n';
+  var getThePos = value_posvar + ' = mc.player.getTilePos()\n';
+  var getTheX = value_posx + ' = ' + value_posvar + '.x\n';
+  var getTheY = value_posy + ' = ' + value_posvar + '.y\n';
+  var getTheZ = value_posz + ' = ' + value_posvar + '.z\n';
   var code = getThePos + getTheX + getTheY + getTheZ;
   return code;
 };
@@ -599,9 +599,9 @@ Blockly.Python['minecraft_entity_gettilepos'] = function(block) {
   var value_eposy = Blockly.Python.valueToCode(block, 'ePosY', Blockly.Python.ORDER_ATOMIC);
   var value_eposz = Blockly.Python.valueToCode(block, 'ePosZ', Blockly.Python.ORDER_ATOMIC);
   var getTheEPos = value_eposvar + ' = mc.entity.getTilePos(' + value_entityid + ')\n';
-  var getTheEX = value_eposx + ' = int(' + value_eposvar + '.x)\n';
-  var getTheEY = value_eposy + ' = int(' + value_eposvar + '.y)\n';
-  var getTheEZ = value_eposz + ' = int(' + value_eposvar + '.z)\n';
+  var getTheEX = value_eposx + ' = ' + value_eposvar + '.x\n';
+  var getTheEY = value_eposy + ' = ' + value_eposvar + '.y\n';
+  var getTheEZ = value_eposz + ' = ' + value_eposvar + '.z\n';
   var code = getTheEPos + getTheEX + getTheEY + getTheEZ;
   return code;
 };

@@ -131,7 +131,7 @@ Blockly.Blocks['minecraft_spawnentity'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Spawn")
-        .appendField(new Blockly.FieldDropdown([["Creeper","50"], ["Skeleton","51"], ["Spider","52"], ["Zombie","54"], ["Pig","90"]]), "mob");
+        .appendField(new Blockly.FieldDropdown([["Pig","90"], ["Sheep","91"], ["Cow","92"], ["Chicken","93"], ["Rabbit","101"]]), "mob");
     this.appendDummyInput()
         .appendField(" at:");
     this.appendValueInput("x")
@@ -156,7 +156,7 @@ Blockly.Blocks['minecraft_spawnentitywithid'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("Spawn")
-        .appendField(new Blockly.FieldDropdown([["Creeper","50"], ["Skeleton","51"], ["Spider","52"], ["Zombie","54"], ["Pig","90"]]), "mob");
+        .appendField(new Blockly.FieldDropdown([["Pig","90"], ["Sheep","91"], ["Cow","92"], ["Chicken","93"], ["Rabbit","101"]]), "mob");
     this.appendDummyInput()
         .appendField(" at:");
     this.appendValueInput("x")
